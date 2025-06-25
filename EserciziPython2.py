@@ -87,19 +87,32 @@ print(f"{contpar(file)}")
 lettere iniziali e con valore le parole di lunghezza maggiore contenute nel file che
 iniziano con quelle lettere.
 """
+"""
 def dizion(filepath):
     dizionario={}
     with open(filepath, "r") as file:
         fileStringa=file.read()
         parole=fileStringa.split()
-        
-        
+        for parola in parole:
+            if parola[0] not in dizionario:
+                dizionario[parola[0]]=parola
+            else:
+                if len(parola)> len(dizionario[parola[0]]):
+                    dizionario[parola[0]]=parola
+    return dizionario
+file="/home/cri2725/programmazione/LaboProg/CSVfiles/testoProva.txt"
+print(f"il dizionario è {dizion(file)}")
+"""
         
 """
 4. Definire una funzione conteggio che prende come input un file e ritorna un dizionario
 con chiave la prima parola di ogni frase e valore il numero di volte che una frase inizia
 con quella parola. Considerare come inizio di frase qualsiasi parola che segue un
 punto, un punto esclamativo, un punto interrogativo o si trova all'inizio del testo.
+"""
+bob=open("/home/cri2725/programmazione/LaboProg/CSVfiles/testo.txt")
+bob.close
+"""
 5. Definire una funzione che prende come input un file, rimuove tutte le righe duplicate,
 scrive il risultato in un nuovo file chiamato unique.txt
 """

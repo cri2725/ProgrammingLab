@@ -110,9 +110,38 @@ con chiave la prima parola di ogni frase e valore il numero di volte che una fra
 con quella parola. Considerare come inizio di frase qualsiasi parola che segue un
 punto, un punto esclamativo, un punto interrogativo o si trova all'inizio del testo.
 """
-bob=open("/home/cri2725/programmazione/LaboProg/CSVfiles/testo.txt")
-bob.close
+"""
+def conteggio(filepath):
+    dizionario={}
+    with open(filepath, "r") as file:
+        parole=file.read().strip().lower().split()
+        for parola in parole:
+            if parola not in dizionario:
+                dizionario[parola]=1
+            else:
+                dizionario[parola]+=1        
+    return dizionario
+file="/home/cri2725/programmazione/LaboProg/CSVfiles/testoProva.txt"
+print(f"il dizionario è {conteggio(file)}")
+"""
 """
 5. Definire una funzione che prende come input un file, rimuove tutte le righe duplicate,
 scrive il risultato in un nuovo file chiamato unique.txt
+"""
+"""
+def rm(filepath):
+    righeviste=[]
+    with open(filepath, "r") as fileinput, open("/home/cri2725/programmazione/LaboProg/CSVfiles/unique.txt","w") as fileoutput:
+        for riga in fileinput:
+            rigaPulita=riga.strip()
+            if rigaPulita not in righeviste:
+                righeviste.append(rigaPulita)
+                fileoutput.write(riga)
+        return 0
+fpath="/home/cri2725/programmazione/LaboProg/CSVfiles/testoProva.txt"
+rm(fpath)
+with open("/home/cri2725/programmazione/LaboProg/CSVfiles/unique.txt","r") as unico:
+
+    stringa=unico.read()
+    print(stringa)
 """

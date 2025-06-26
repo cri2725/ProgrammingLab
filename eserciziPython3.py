@@ -41,18 +41,61 @@ Create un oggetto CSVFile che rappresenti un file CSV, e che:
 """
 class CSVfile():
     def __init__(self,nomeFile):
+        if not isinstance(nomeFile,str):
+            raise TypeError(f"{nomeFile} non è una stringa")
         self.name=nomeFile
-    def getdata(self):
+    def get_data(self,start=None,end=None):
         lista_dati=[]
-        with open("/home/cri2725/programmazione/LaboProg/CSVfiles/"+self.name, "r") as file:
-            for riga in file:
-                rigapulita=riga.strip().split(",")
-                if rigapulita[0] != "Date":
-                    lista_dati.append(rigapulita)
-        print(lista_dati)
+        try:
+            with open("/home/cri2725/programmazione/LaboProg/CSVfiles/"+self.name, "r") as file:
+                if start is None and end is None:
+                    for elmento in file:
+                        rigapulita=elmento.strip().split(",")
+                        if rigapulita[0] != "Date":
+                            lista_dati.append(rigapulita)
+                else:
+                    end=str(end)
+                    start=str(start)
+                    end=end.strip()
+                    start=start.strip()
+                    try:
+                        fine=int(end)
+                        inizio=int(start)
+                    except TypeError:
+                        print("tipo sbagliato per start o end")
+                    if fine < 0 or inizio < 0:
+                        raise ValueError("start o end minori di zero")
+                    if fine < inizio:
+                        raise ValueError("fine minore dell'inizio")
+                    for i,riga in enumerate(file):
+                        if i<inizio:
+                            continue
+                        if i>fine:
+                            break
+                        rigapulita=riga.strip().split(",")
+                        if rigapulita[0] != "Date":
+                            lista_dati.append(rigapulita)
+        except IOError as erroreIO:
+            print(f"file non esistente | impossibile leggere il file {erroreIO}")
+        return lista_dati
+class NumericalCSVFile(CSVfile):
+    def __init__(self,nomeFile):
+        super().__init__(nomeFile)
+    def get_data(self,start,end):
+        dati_figlio=[]
+        dati_genitore=super().get_data(start,end)
+        for elemento in dati_genitore:
+            try:
+                elementonumerico=float(elemento[1])
+            except ValueError:
+                print("Errore")
+            dati_figlio.append([elemento[0], elementonumerico])
+        return dati_figlio
 file="shampoo_sales.csv"
 filecsvshampoo=CSVfile(file)
-filecsvshampoo.getdata()
+fcsvshampoonum=NumericalCSVFile(file)
+print(f" {filecsvshampoo.get_data()}")
+print(f"{fcsvshampoonum.get_data(3,5)}")
 """
 """
 Esercizio 2: Classe Veicolo
@@ -69,7 +112,7 @@ E di questi metodi:
     frenare che sottrae 5 dall'attributo dati speed ogni volta che viene chiamato.
     get_speed che restituisce la velocità corrente.
 """
-
+"""
 class Veicolo():
     def __init__(self, modello,marca,anno):
         self.modello=modello
@@ -84,6 +127,7 @@ class Veicolo():
         self.speed-=5
     def get_speed(self):
         return self.speed
+"""
 """
 macchina=Veicolo("Punto","Fiat","2009")
 print(macchina)

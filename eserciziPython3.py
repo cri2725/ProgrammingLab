@@ -54,3 +54,65 @@ file="shampoo_sales.csv"
 filecsvshampoo=CSVfile(file)
 filecsvshampoo.getdata()
 """
+"""
+Esercizio 2: Classe Veicolo
+Scrivete una classe denominata Veicolo che disponga di questi attributi dati:
+    modello (per il modello del veicolo);
+    marca (per la marca del veicolo);
+    anno (per l'anno del veicolo).
+    speed (per la velocità del veicolo)
+E di questi metodi:
+    __init__ che accetti come argomenti l'anno, il modello, e la marca. 
+        Il metodo dovrebbe inoltre assegnare 0 all'attributo dati speed.
+    __str__ che restituisce una stringa con i dettagli del veicolo (marca, modello, anno e velocità)
+    accelerare che aggiunge 5 all'attributo dati speed ogni volta che viene chiamato.
+    frenare che sottrae 5 dall'attributo dati speed ogni volta che viene chiamato.
+    get_speed che restituisce la velocità corrente.
+"""
+
+class Veicolo():
+    def __init__(self, modello,marca,anno):
+        self.modello=modello
+        self.marca=marca
+        self.anno=anno
+        self.speed=0
+    def __str__(self):
+        return f"il veicolo è il modello {self.modello} della {self.marca} e del {self.anno} e va a {self.speed}"
+    def accelerare(self):
+        self.speed+=5
+    def frenare(self):
+        self.speed-=5
+    def get_speed(self):
+        return self.speed
+"""
+macchina=Veicolo("Punto","Fiat","2009")
+print(macchina)
+macchina.accelerare();macchina.accelerare()
+print(macchina)
+print(macchina.get_speed())
+"""
+"""
+Esercizio 3
+- Crea una sottoclasse auto che ha in aggiunta l'attributo numero_porte 
+e cambia il metodo __str__ di conseguenza
+- Crea una sottoclasse moto che ha in aggiunta l'attributo tipo 
+(ad esempio, "Sportiva" o "Touring") e cambia il metodo __str__ di conseguenza
+"""
+"""
+class auto(Veicolo):
+    def __init__(self, modello,marca,anno,numero_porte):
+        super().__init__(modello,marca,anno)
+        self.numero_porte=numero_porte
+    def __str__(self):
+        return super().__str__() + f" ed ha {self.numero_porte} porte"
+macchina=auto("Punto","Fiat","2009",4)
+print(macchina)
+class moto(Veicolo):
+    def __init__(self, modello,marca,anno,tipo):
+        super().__init__(modello,marca,anno)
+        self.tipo=tipo
+    def __str__(self):
+        return super().__str__()+f" ed è del tipo {self.tipo} "
+motorino=moto("modelloahha","Ducati","2015","Sportiva")
+print(motorino)
+"""

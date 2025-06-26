@@ -4,7 +4,6 @@ class ExamException(Exception):
 
 #classe per media movente
 class MovingAverage():
-    #inizializzazione con lunghezza finestra
     def __init__(self, lfinestra):
         self.lfinestra=lfinestra
     def compute(self, l_input):
